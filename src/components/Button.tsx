@@ -1,3 +1,4 @@
+import {COLORS} from '@constants/colors';
 import React from 'react';
 import {StyleSheet, Text, View, Pressable} from 'react-native';
 import Animated, {
@@ -13,10 +14,18 @@ type Props = {
   icon?: React.FC<SvgProps>;
   primary?: boolean;
   fill?: boolean;
+  size?: 'small' | 'big';
   onPress?: () => void;
 };
 
-export const Button = ({icon: Icon, label, primary, fill, onPress}: Props) => {
+export const Button = ({
+  icon: Icon,
+  label,
+  primary,
+  fill,
+  size = 'small',
+  onPress,
+}: Props) => {
   const scale = useSharedValue(1);
   const pressed = useSharedValue(0);
 
@@ -24,7 +33,10 @@ export const Button = ({icon: Icon, label, primary, fill, onPress}: Props) => {
     const backgroundColor = interpolateColor(
       pressed.value,
       [0, 1],
-      [primary ? '#000000' : '#f2f2f2', primary ? '#333333' : '#d9d9d9'],
+      [
+        primary ? COLORS.primaryColor : COLORS.contentColor,
+        primary ? COLORS.primaryDarkenColor : COLORS.backgroundColor,
+      ],
     );
 
     return {
@@ -52,12 +64,18 @@ export const Button = ({icon: Icon, label, primary, fill, onPress}: Props) => {
       <Animated.View
         style={[
           styles.button,
+          {height: size === 'big' ? 54 : 40},
           primary && styles.primary,
           animatedStyle,
           fill && {height: 50},
         ]}>
         {Icon && <Icon color={primary ? '#ffffff' : '#c7c7c7'} />}
-        <Text style={[primary && styles.label, fill && {fontSize: 14}]}>
+        <Text
+          style={[
+            styles.label,
+            {color: primary ? COLORS.cardColor : COLORS.primaryColor},
+            fill && {fontSize: 14},
+          ]}>
           {label}
         </Text>
       </Animated.View>
@@ -69,15 +87,16 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 56,
+    height: 40,
     flexDirection: 'row',
     gap: 8,
-    borderRadius: 20,
+    borderRadius: 24,
   },
   primary: {
     backgroundColor: '#000000',
   },
   label: {
-    color: '#ffffff',
+    fontSize: 13,
+    fontWeight: 'bold',
   },
 });

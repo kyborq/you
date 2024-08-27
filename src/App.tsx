@@ -13,7 +13,7 @@ const App = () => {
           background: COLORS.backgroundColor,
         },
       }}>
-      <StatusBar backgroundColor={COLORS.cardColor} />
+      <StatusBar backgroundColor={COLORS.contentColor} />
       <Navigation />
     </NavigationContainer>
   );

@@ -13,7 +13,7 @@ export const HomeScreen = ({navigation}: any) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: COLORS.cardColor,
+    backgroundColor: COLORS.contentColor,
     padding: 24,
     borderBottomStartRadius: 24,
     borderBottomEndRadius: 24,

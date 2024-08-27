@@ -3,8 +3,19 @@ import {TabBar} from './TabBar';
 import {BookIcon, CheckIcon, ChecklistIcon, HomeIcon} from '@assets/icons';
 import {HomeScreen} from '@screens/HomeScreen';
 import {PointsScreen} from '@screens/PointsScreen';
+import {TasksScreen} from '@screens/TasksScreen';
+import {JournalScreen} from '@screens/JournalScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {CreateTaskScreen} from '@screens/TasksScreen/CreateTaskScreen';
 
-const Tab = createBottomTabNavigator();
+export type TabNavigatorParamList = {
+  Home: undefined;
+  Tasks: undefined;
+  Journal: undefined;
+  Points: undefined;
+};
+
+const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 export const TabNavigation = () => {
   return (
@@ -21,12 +32,12 @@ export const TabNavigation = () => {
       />
       <Tab.Screen
         name="Tasks"
-        component={HomeScreen}
+        component={TasksScreen}
         options={{tabBarIcon: CheckIcon, tabBarLabel: 'Задачи'}}
       />
       <Tab.Screen
         name="Journal"
-        component={HomeScreen}
+        component={JournalScreen}
         options={{tabBarIcon: BookIcon, tabBarLabel: 'Журнал'}}
       />
       <Tab.Screen

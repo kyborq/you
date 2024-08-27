@@ -2,10 +2,16 @@ import {HomeIcon, PlusIcon} from '@assets/icons';
 import {Button} from '@components/Button';
 import {Header} from '@components/Header';
 import {IconButton} from '@components/IconButton';
+import {TabNavigatorParamList} from '@components/TabNavigation';
 import {COLORS} from '@constants/colors';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {StyleSheet, Text, View} from 'react-native';
 
-export const PointsScreen = ({navigation}: any) => {
+type PointsScreenProps = BottomTabScreenProps<TabNavigatorParamList, 'Points'>;
+
+export const PointsScreen = ({navigation}: PointsScreenProps) => {
   return (
     <View style={styles.root}>
       <Header title="Отметки">

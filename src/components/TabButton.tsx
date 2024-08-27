@@ -10,10 +10,11 @@ type Props = {
   icon: React.ReactNode;
   label: string;
   color: string;
+  height?: number;
   onPress?: () => void;
 };
 
-export const TabButton = ({icon, label, color, onPress}: Props) => {
+export const TabButton = ({icon, label, color, height, onPress}: Props) => {
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => {

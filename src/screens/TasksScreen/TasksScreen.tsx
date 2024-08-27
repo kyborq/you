@@ -1,16 +1,16 @@
-import {HomeIcon, PlusIcon} from '@assets/icons';
-import {Button} from '@components/Button';
-import {Header} from '@components/Header';
-import {IconButton} from '@components/IconButton';
+import React from 'react';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@components/Navigation';
 import {TabNavigatorParamList} from '@components/TabNavigation';
+import {View, StyleSheet, SafeAreaView} from 'react-native';
+import {PlusIcon} from '@assets/icons';
+import {Header} from '@components/Header';
+import {IconButton} from '@components/IconButton';
 import {Week} from '@components/Week';
 import {COLORS} from '@constants/colors';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {StyleSheet, Text, View} from 'react-native';
-import {useAppStore} from 'src/store/useAppStore';
+import {ScrollableScreenWrapper} from '@components/ScrollableScreenWrapper';
 
 type TasksScreenProps = CompositeScreenProps<
   BottomTabScreenProps<TabNavigatorParamList, 'Tasks'>,
@@ -18,30 +18,33 @@ type TasksScreenProps = CompositeScreenProps<
 >;
 
 export const TasksScreen = ({navigation}: TasksScreenProps) => {
-  const {currentDate} = useAppStore();
+  const headerComponent = (
+    <Header title="Задачи">
+      <IconButton
+        icon={<PlusIcon color={COLORS.primaryColor} />}
+        onPress={() => {
+          navigation.navigate('CreateTask');
+        }}
+      />
+    </Header>
+  );
 
   return (
-    <View style={styles.root}>
-      <Header title="Задачи">
-        <IconButton
-          icon={<PlusIcon color={COLORS.primaryColor} />}
-          onPress={() => {
-            navigation.navigate('CreateTask');
-          }}
-        />
-      </Header>
-      <Week date={currentDate} />
-    </View>
+    <SafeAreaView>
+      <ScrollableScreenWrapper headerComponent={headerComponent}>
+        <Week date={new Date()} />
+        {[...Array(24)].map((_, index) => (
+          <View key={index} style={styles.card} />
+        ))}
+      </ScrollableScreenWrapper>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: COLORS.contentColor,
-    padding: 24,
-    borderBottomStartRadius: 24,
-    borderBottomEndRadius: 24,
-    gap: 24,
+  card: {
+    backgroundColor: COLORS.cardColor,
+    height: 64,
+    borderRadius: 24,
   },
 });

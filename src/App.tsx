@@ -4,6 +4,7 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {StatusBar} from 'react-native';
 import {useInterval} from 'usehooks-ts';
 import {useAppStore} from './store/useAppStore';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const App = () => {
   const {updateCurrentDate} = useAppStore();
@@ -21,8 +22,10 @@ const App = () => {
           background: COLORS.backgroundColor,
         },
       }}>
-      <StatusBar backgroundColor={COLORS.contentColor} />
-      <Navigation />
+      <GestureHandlerRootView>
+        <StatusBar backgroundColor={COLORS.contentColor} />
+        <Navigation />
+      </GestureHandlerRootView>
     </NavigationContainer>
   );
 };

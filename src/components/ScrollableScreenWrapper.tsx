@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -23,6 +23,10 @@ export const ScrollableScreenWrapper: React.FC<
   const scrollThreshold = 10;
   const scrollViewRef = useRef<ScrollView>(null);
   const [isScrollingToEnd, setIsScrollingToEnd] = useState(false);
+
+  useEffect(() => {
+    setTabBarVisible(false);
+  }, []);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentOffset = event.nativeEvent.contentOffset.y;

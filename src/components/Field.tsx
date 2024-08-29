@@ -9,6 +9,7 @@ type Props = {
   value?: string;
   label?: string;
   multiline?: boolean;
+  maxLength?: number;
   onChangeText?: (value: string) => void;
 };
 
@@ -18,6 +19,7 @@ export const Field = ({
   label,
   value,
   multiline,
+  maxLength,
   onChangeText,
 }: Props) => {
   return (
@@ -32,9 +34,20 @@ export const Field = ({
           value={value}
           multiline={multiline}
           cursorColor={COLORS.primaryColor}
-          onChangeText={onChangeText}
+          onChangeText={text => {
+            if (maxLength && value && text.length > maxLength) {
+              onChangeText && onChangeText(value);
+              return;
+            }
+            onChangeText && onChangeText(text);
+          }}
         />
       </View>
+      {!!maxLength && (
+        <Text style={[styles.label]}>
+          {value?.length || 0}/{maxLength}
+        </Text>
+      )}
     </View>
   );
 };
